@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".MainActivity">
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/netology"
@@ -67,6 +66,7 @@
     <TextView
         android:id="@+id/content"
         android:layout_width="0dp"
+        android:autoLink="web"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
