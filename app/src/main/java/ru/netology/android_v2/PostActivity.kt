@@ -47,6 +47,9 @@ class PostActivity : AppCompatActivity() {
                 )
                 likesText.text = Util.parseNumber(post.likesCount)
 
+                val toast = Toast.makeText(applicationContext, "like image view click", Toast.LENGTH_SHORT)
+                toast.show()
+
             }
 
             repostImage.setOnClickListener {
@@ -61,10 +64,12 @@ class PostActivity : AppCompatActivity() {
                 toast.show()
             }
 
-            authorText.setOnClickListener{
+            netology.setOnClickListener{
                 val toast = Toast.makeText(applicationContext, "author image view click", Toast.LENGTH_SHORT)
                 toast.show()
             }
+
+
 
         }
 
