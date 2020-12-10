@@ -18,22 +18,22 @@ class PostActivity : AppCompatActivity() {
         val viewModel: PostViewModel by viewModels()
         viewModel.data.observe(this, { post ->
             with(binding) {
-                author.text = post.author
-                publisher.text = post.published
-                content.text = post.content
-                text_likes.text = Util.parseNumber(post.likesCount)
-                text_repost.text = Util.parseNumber(post.shareCount)
-                text_watch.text = Util.parseNumber(post.viewCount)
-                if (post.liked) likes.setImageResource(R.drawable.ic_action_like_red_24)
-                else likes.setImageResource(R.drawable.ic_action_like)
+                authorText.text = post.author
+                publisherText.text = post.published
+                contentText.text = post.content
+                likesText.text = Util.parseNumber(post.likesCount)
+                repostText.text = Util.parseNumber(post.shareCount)
+                watchText.text = Util.parseNumber(post.viewCount)
+                if (post.liked) likesImage.setImageResource(R.drawable.ic_action_like_red_24)
+                else likesImage.setImageResource(R.drawable.ic_action_like)
             }
         })
 
-        binding.likes.setOnClickListener {
+        binding.likesImage.setOnClickListener {
             viewModel.like()
         }
 
-        binding.repost.setOnClickListener {
+        binding.repostImage.setOnClickListener {
             viewModel.share()
         }
 
