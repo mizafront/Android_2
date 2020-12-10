@@ -25,34 +25,34 @@ class PostActivity : AppCompatActivity() {
         )
 
         with(binding) {
-            author.text = post.author
-            publisher.text = post.published
-            content.text = post.content
-            text_likes.text = Util.parseNumber(post.likesCount)
-            text_repost.text = Util.parseNumber(post.shareCount)
-            text_watch.text = Util.parseNumber(post.viewCount)
+            authorText.text = post.author
+            publisherText.text = post.published
+            contentText.text = post.content
+            likesText.text = Util.parseNumber(post.likesCount)
+            repostText.text = Util.parseNumber(post.shareCount)
+            watchText.text = Util.parseNumber(post.viewCount)
             if (post.liked) {
-                likes.setImageResource(R.drawable.ic_action_like_24)
+                likesImage.setImageResource(R.drawable.ic_action_like_24)
             }
 
-            likes.setOnClickListener {
+            likesImage.setOnClickListener {
 
                 post = post.copy(
                     liked = !post.liked,
                     likesCount = if (!post.liked) post.likesCount + 1 else post.likesCount - 1
                 )
 
-                likes.setImageResource(
+                likesImage.setImageResource(
                     if (post.liked) R.drawable.ic_action_like_24 else R.drawable.ic_action_like
                 )
-                text_likes.text = Util.parseNumber(post.likesCount)
+                likesText.text = Util.parseNumber(post.likesCount)
 
             }
 
-            repost.setOnClickListener {
+            repostImage.setOnClickListener {
 
                 post = post.copy(shareCount = post.shareCount + 1)
-                text_repost.text = Util.parseNumber(post.shareCount)
+                repostText.text = Util.parseNumber(post.shareCount)
 
             }
 
@@ -61,7 +61,7 @@ class PostActivity : AppCompatActivity() {
                 toast.show()
             }
 
-            author.setOnClickListener{
+            authorText.setOnClickListener{
                 val toast = Toast.makeText(applicationContext, "author image view click", Toast.LENGTH_SHORT)
                 toast.show()
             }
