@@ -3,7 +3,6 @@ package ru.netology.android_v2
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import ru.netology.android_v2.Posts.PostViewModel
 import ru.netology.android_v2.Posts.Util
 import ru.netology.android_v2.databinding.ActivityMainBinding
