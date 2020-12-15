@@ -1,7 +1,8 @@
-package ru.netology.android_v2
+package ru.netology.android_v2.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.netology.android_v2.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

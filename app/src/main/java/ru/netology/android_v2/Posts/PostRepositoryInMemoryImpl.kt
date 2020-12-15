@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 
 interface PostRepositoryInMemoryImpl {
     fun get(): LiveData<Post>
+    fun getAll(): LiveData<List<Post>>
     fun like()
+    fun likeById(id: Int)
     fun share()
+    fun shareById(id: Int)
 }
