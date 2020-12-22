@@ -2,4 +2,6 @@
     <string name="app_name">Android_v2</string>
     <string name="nethology_university_of_internet_professions">Nethology. University of internet professions.</string>
     <string name="date_May">May 21 at 18:36</string>
+    <string name="post_text">Post text</string>
+    <string name="empty_text">Can`t be empty</string>
 </resources>

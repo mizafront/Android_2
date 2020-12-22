@@ -2,6 +2,7 @@ package ru.netology.android_v2.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,8 @@ import ru.netology.android_v2.databinding.PostCardBinding
 interface OnInteractionListener {
     fun onLike(post: Post)
     fun onShare(post: Post)
+    fun onRemove(post: Post)
+    fun onEdit(post: Post)
 }
 
 class PostsAdapter(private val OnInteractionListener: OnInteractionListener) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()){
@@ -51,6 +54,25 @@ class PostViewHolder(
             }
             repostImage.setOnClickListener {
                 OnInteractionListener.onShare(post)
+            }
+
+            menuImage.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener {item ->
+                        when (item.itemId) {
+                            R.id.remove -> {
+                                OnInteractionListener.onRemove(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                OnInteractionListener.onEdit(post)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
             }
         }
 
