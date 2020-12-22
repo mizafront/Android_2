@@ -9,4 +9,6 @@ interface PostRepositoryInMemoryImpl {
     fun likeById(id: Int)
     fun share()
     fun shareById(id: Int)
+    fun removeById(id: Int)
+    fun save(post: Post)
 }

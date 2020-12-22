@@ -11,3 +11,17 @@ data class Post (
     val shareCount: Int = 0,
     val viewCount: Int = 0
 )
+
+fun getEmptyPost(): Post {
+    return Post(
+            0,
+            "Me",
+            "Now",
+            "",
+            false,
+            0,
+            false,
+            0,
+            0
+    )
+}

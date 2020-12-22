@@ -6,11 +6,13 @@ import androidx.lifecycle.MutableLiveData
 
 class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
 
+    var currentId = 1
+
     private var post = Post(
             0,
             "Первый пост.",
             "01 декабря 2020",
-            "Это первый пост созданный 1 декабря 2020 года.",
+            "Это первый пост созданный 1 декабря 2020 года.\\n\\n",
             false,
             1,
             false,
@@ -20,7 +22,7 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
 
     private var posts = listOf(
             Post(
-                0,
+                    currentId++,
                 "Первый пост.",
                 "01 декабря 2020",
                 "Это первый пост созданный 1 декабря 2020 года.",
@@ -31,7 +33,7 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
                 111
     ),
             Post(
-                1,
+                    currentId++,
                 "Второй пост.",
                 "01 декабря 2020",
                 "Это второй пост созданный 2 декабря 2020 года.",
@@ -42,7 +44,7 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
                 111
             ),
             Post(
-                2,
+                    currentId++,
                 "Третий.",
                 "01 декабря 2020",
                 "Это третий пост созданный 3 декабря 2020 года.",
@@ -53,7 +55,7 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
                 111
     ),
         Post(
-                3,
+                currentId++,
                 "Четвертый.",
                 "01 декабря 2020",
                 "Это четвертый пост созданный 4 декабря 2020 года.",
@@ -71,6 +73,7 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
 
     override fun get(): LiveData<Post> = data
     override fun getAll(): LiveData<List<Post>> = dataPost
+
     override fun like() {
         post = post.copy(
                 liked = !post.liked,
@@ -101,5 +104,24 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
         dataPost.value = posts
     }
 
+    override fun removeById(id: Int) {
+        posts = posts.filter { it.id != id }
+        dataPost.value = posts
+    }
 
+    override fun save(post: Post) {
+
+        if (post.id == 0) {
+            posts = listOf(
+                    post.copy(id = currentId++)
+            ) + posts
+            dataPost.value = posts
+        }
+
+        posts = posts.map {
+            if (post.id != it.id) it else it.copy(content = post.content)
+        }
+
+        dataPost.value = posts
+    }
 }

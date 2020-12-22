@@ -4,146 +4,148 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/common_spacing">
 
     <ImageView
         android:id="@+id/netology"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="@id/header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        />
+        android:layout_width="@dimen/posts_avatar_size"
+        android:layout_height="@dimen/posts_avatar_size"
+        android:layout_marginBottom="@dimen/common_spacing"
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/authorText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/publisherText"
+        app:layout_constraintBottom_toTopOf="@+id/publisherText"
         app:layout_constraintEnd_toStartOf="@id/menuImage"
         app:layout_constraintStart_toEndOf="@id/netology"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="@sample/posts.json/data/author"
-        />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:layout_marginEnd="@dimen/common_spacing"
+        android:ellipsize="end"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/publisherText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/authorText"
-        app:layout_constraintBottom_toBottomOf="@id/barrier"
+        app:layout_constraintBottom_toBottomOf="@id/header"
         app:layout_constraintEnd_toStartOf="@id/menuImage"
         app:layout_constraintStart_toEndOf="@id/netology"
-        tools:text="@sample/posts.json/data/publisher"
-        />
+        app:layout_constraintTop_toBottomOf="@id/authorText"
+        tools:text="@sample/posts.json/data/published"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:layout_marginEnd="@dimen/common_spacing"
+        android:layout_marginBottom="@dimen/common_spacing" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/menuImage"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_more_verts" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
+        app:srcCompat="@mipmap/ic_more_verts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_spacing"
+        android:background="@android:color/transparent" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/header"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="netology,authorText,publisherText"
-        />
+        app:constraint_referenced_ids="netology,publisherText,menuImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/contentText"
-        android:layout_width="0dp"
-        android:autoLink="web"
-        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrier"
-        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/header"
         tools:text="@sample/posts.json/data/content"
-        />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:lineSpacingMultiplier="1.5"
+        android:paddingTop="@dimen/common_spacing"
+        android:paddingBottom="@dimen/common_spacing" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="contentText"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/likesImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier2"
+        app:srcCompat="@drawable/ic_action_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_action_like"
-        app:layout_constraintTop_toTopOf="@id/barrier2"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="@dimen/common_spacing"
+        android:background="@android:color/transparent" />
 
     <TextView
         android:id="@+id/likesText"
         android:text="10"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf ="@id/likesImage"
         app:layout_constraintTop_toTopOf="@id/barrier2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/common_spacing"
         android:layout_marginStart="10dp"
         />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/repostImage"
+        app:layout_constraintStart_toEndOf="@+id/likesText"
+        app:layout_constraintTop_toBottomOf="@id/barrier2"
+        app:srcCompat="@drawable/ic_action_reopost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_action_reopost"
-        app:layout_constraintTop_toTopOf="@id/barrier2"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@id/likesText"
-        android:layout_marginStart="10dp"
-        />
+        android:layout_marginStart="@dimen/common_spacing"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:background="@android:color/transparent" />
 
     <TextView
         android:id="@+id/repostText"
-        android:text="5"
-        android:layout_width="0dp"
+        android:text="10"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf ="@id/repostImage"
         app:layout_constraintTop_toTopOf="@id/barrier2"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/common_spacing"
         android:layout_marginStart="10dp"
         />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/watchImage"
+        app:layout_constraintEnd_toStartOf="@id/watchText"
+        app:layout_constraintTop_toBottomOf="@id/barrier2"
+        app:srcCompat="@drawable/ic_action_watch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_action_watch"
-        app:layout_constraintTop_toTopOf="@id/barrier2"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toStartOf="@id/watchText"
-        android:layout_marginEnd="10dp"
-        />
+        android:layout_marginStart="@dimen/common_spacing"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:background="@android:color/transparent"
+        android:layout_marginEnd="10dp"/>
 
     <TextView
         android:id="@+id/watchText"
-        android:text="5"
-        android:layout_width="0dp"
+        android:text="10"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/barrier2"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="@dimen/common_spacing"
+
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
