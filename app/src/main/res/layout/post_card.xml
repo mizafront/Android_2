@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/common_spacing">
+    android:padding="@dimen/common_spacing"
+    android:background="@color/colorBackgroundOne">
 
     <ImageView
         android:id="@+id/netology"
@@ -45,15 +46,15 @@
         android:layout_marginEnd="@dimen/common_spacing"
         android:layout_marginBottom="@dimen/common_spacing" />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menuImage"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@android:color/transparent"
+        app:icon="@drawable/ic_more_vers"
+        app:iconTint="@color/colorTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_more_verts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/common_spacing"
-        android:background="@android:color/transparent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/header"
@@ -82,52 +83,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/likesImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier2"
-        app:srcCompat="@drawable/ic_action_like"
+        app:icon="@drawable/ic_like_selector"
+        app:iconTint="@color/ic_like_tint"
+        android:checkable="true"
+        tools:text="13"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_spacing"
-        android:background="@android:color/transparent" />
-
-    <TextView
-        android:id="@+id/likesText"
-        android:text="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf ="@id/likesImage"
-        app:layout_constraintTop_toTopOf="@id/barrier2"
-        android:layout_marginTop="@dimen/common_spacing"
-        android:layout_marginStart="10dp"
+        android:background="@android:color/transparent"
         />
 
-    <ImageButton
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/repostImage"
-        app:layout_constraintStart_toEndOf="@+id/likesText"
+        app:layout_constraintStart_toEndOf="@+id/likesImage"
         app:layout_constraintTop_toBottomOf="@id/barrier2"
-        app:srcCompat="@drawable/ic_action_reopost"
+        app:icon="@drawable/ic_repost"
+        app:iconTint="@color/repostClicker"
+        android:checkable="true"
+        tools:text="111"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_spacing"
-        android:layout_marginTop="@dimen/common_spacing"
         android:background="@android:color/transparent" />
 
-    <TextView
-        android:id="@+id/repostText"
-        android:text="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf ="@id/repostImage"
-        app:layout_constraintTop_toTopOf="@id/barrier2"
-        android:layout_marginTop="@dimen/common_spacing"
-        android:layout_marginStart="10dp"
-        />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/watchImage"
-        app:layout_constraintEnd_toStartOf="@id/watchText"
         app:layout_constraintTop_toBottomOf="@id/barrier2"
         app:srcCompat="@drawable/ic_action_watch"
         android:layout_width="wrap_content"
@@ -135,17 +122,9 @@
         android:layout_marginStart="@dimen/common_spacing"
         android:layout_marginTop="@dimen/common_spacing"
         android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="10dp"/>
 
-    <TextView
-        android:id="@+id/watchText"
-        android:text="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/barrier2"
-        android:layout_marginTop="@dimen/common_spacing"
 
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

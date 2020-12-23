@@ -43,11 +43,9 @@ class PostViewHolder(
             authorText.text = post.author
             contentText.text = post.content
             publisherText.text = post.published
-            likesText.text = Util.parseNumber(post.likesCount)
-            repostText.text = Util.parseNumber(post.shareCount)
-            watchText.text = Util.parseNumber(post.viewCount)
-            if (post.liked) likesImage.setImageResource(R.drawable.ic_action_like_red_24)
-            else likesImage.setImageResource(R.drawable.ic_action_like)
+            likesImage.isChecked = post.liked
+            likesImage.text = post.likesCount.toString()
+            repostImage.text = post.shareCount.toString()
 
             likesImage.setOnClickListener {
                 OnInteractionListener.onLike(post)
@@ -80,6 +78,8 @@ class PostViewHolder(
     }
 }
 
+
+
 class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
     override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem.id == newItem.id
@@ -88,4 +88,6 @@ class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
     override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem == newItem
     }
+
+    override fun getChangePayload(oldItem: Post, newItem: Post): Any = Unit
 }
