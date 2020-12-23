@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorTitle">#000000</color>
+    <color name="colorBackgroundOne">#FFF7F7</color>
+    <color name="likeClicker">#DC2700</color>
+    <color name="repostClicker">#4B4B4B</color>
 </resources>
