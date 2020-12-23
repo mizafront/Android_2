@@ -16,7 +16,7 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
             false,
             1,
             false,
-            0,
+            111111,
             3
     )
 
@@ -29,7 +29,7 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
                 false,
                 1,
                 false,
-                0,
+                    111111,
                 111
     ),
             Post(

@@ -44,8 +44,8 @@ class PostViewHolder(
             contentText.text = post.content
             publisherText.text = post.published
             likesImage.isChecked = post.liked
-            likesImage.text = post.likesCount.toString()
-            repostImage.text = post.shareCount.toString()
+            likesImage.text = Util.parseNumber(post.shareCount)
+            repostImage.text = Util.parseNumber(post.shareCount)
 
             likesImage.setOnClickListener {
                 OnInteractionListener.onLike(post)
