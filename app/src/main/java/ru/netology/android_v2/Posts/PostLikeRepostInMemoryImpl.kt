@@ -10,27 +10,29 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
 
     private var post = Post(
             0,
-            "Первый пост.",
+            "Рассия",
             "01 декабря 2020",
             "Это первый пост созданный 1 декабря 2020 года.\\n\\n",
             false,
-            1,
+            8,
             false,
-            111111,
-            3
+            9,
+            3,
+        "https://www.youtube.com"
     )
 
     private var posts = listOf(
             Post(
                     currentId++,
-                "Первый пост.",
+                "First",
                 "01 декабря 2020",
                 "Это первый пост созданный 1 декабря 2020 года.",
                 false,
-                1,
+                6,
                 false,
-                    111111,
-                111
+                    7,
+                111,
+                "https://www.youtube.com"
     ),
             Post(
                     currentId++,
@@ -38,10 +40,11 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
                 "01 декабря 2020",
                 "Это второй пост созданный 2 декабря 2020 года.",
                 false,
-                2,
+                15,
                 false,
-                0,
-                111
+                4444,
+                111,
+                "https://www.youtube.com"
             ),
             Post(
                     currentId++,
@@ -49,10 +52,11 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
                 "01 декабря 2020",
                 "Это третий пост созданный 3 декабря 2020 года.",
                 false,
-                3,
+                90,
                 false,
-                0,
-                111
+                9,
+                111,
+                "https://www.youtube.com"
     ),
         Post(
                 currentId++,
@@ -60,10 +64,11 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
                 "01 декабря 2020",
                 "Это четвертый пост созданный 4 декабря 2020 года.",
                 false,
-                4,
+                323,
                 false,
-                0,
-                111
+                11111,
+                111,
+            "https://www.youtube.com"
         )
     )
 

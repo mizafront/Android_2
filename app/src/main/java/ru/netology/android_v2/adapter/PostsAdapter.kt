@@ -16,6 +16,7 @@ interface OnInteractionListener {
     fun onShare(post: Post)
     fun onRemove(post: Post)
     fun onEdit(post: Post)
+    fun onPlay(post: Post)
 }
 
 class PostsAdapter(private val OnInteractionListener: OnInteractionListener) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()){
@@ -44,7 +45,8 @@ class PostViewHolder(
             contentText.text = post.content
             publisherText.text = post.published
             likesImage.isChecked = post.liked
-            likesImage.text = Util.parseNumber(post.shareCount)
+            repostImage.isChecked = post.shared
+            likesImage.text = Util.parseNumber(post.likesCount)
             repostImage.text = Util.parseNumber(post.shareCount)
 
             likesImage.setOnClickListener {
@@ -71,6 +73,14 @@ class PostViewHolder(
                         }
                     }
                 }.show()
+            }
+
+            playVideoImageView.setOnClickListener {
+                OnInteractionListener.onPlay(post)
+            }
+
+            videoImageView.setOnClickListener {
+                OnInteractionListener.onPlay(post)
             }
         }
 

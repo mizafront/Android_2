@@ -1,16 +1,15 @@
 package ru.netology.android_v2.activity
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import ru.netology.android_v2.Posts.Post
 import ru.netology.android_v2.Posts.PostViewModel
-import ru.netology.android_v2.Posts.Util
-import ru.netology.android_v2.R
 import ru.netology.android_v2.adapter.OnInteractionListener
 import ru.netology.android_v2.adapter.PostsAdapter
 import ru.netology.android_v2.databinding.ActivityMainBinding
@@ -18,12 +17,13 @@ import ru.netology.android_v2.databinding.ActivityMainBinding
 
 class PostActivity : AppCompatActivity() {
 
+    private val newPostRequestCode = 1
+    private val viewModel: PostViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val viewModel: PostViewModel by viewModels()
 
         val postAdapter = PostsAdapter(object : OnInteractionListener {
             override fun onLike(post: Post) {
@@ -31,7 +31,20 @@ class PostActivity : AppCompatActivity() {
             }
 
             override fun onShare(post: Post) {
-                viewModel.shareById(post.id)
+                val intent = Intent(Intent.ACTION_SEND)
+                        .setType("text/plain")
+                        .putExtra(Intent.EXTRA_TEXT, post.content)
+                        .let {
+                            Intent.createChooser(it, null)
+                        }
+
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@PostActivity, "No any more app",
+                        Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
 
             override fun onRemove(post: Post) {
@@ -40,6 +53,16 @@ class PostActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
+                val intent = Intent(this@PostActivity, CreatPostActivity::class.java)
+                intent.putExtra(Intent.EXTRA_TEXT, post.content)
+                startActivityForResult(intent, newPostRequestCode)
+            }
+
+            override fun onPlay(post: Post) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(post.videoUrl))
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
             }
         })
 
@@ -47,57 +70,29 @@ class PostActivity : AppCompatActivity() {
 
         viewModel.dataList.observe(this) {
             postAdapter.submitList(it)
-            group.visibility = View.INVISIBLE
-        }
-
-        viewModel.edited.observe(this, { post ->
-            if (post.id == 0) {
-                return@observe
-            }
-            group.visibility = View.VISIBLE
-            with(binding.editContent) {
-                requestFocus()
-                setText(post.content)
-            }
-            with(binding.saveEditContent) {
-                requestFocus()
-                setText(post.content)
-            }
-
-        })
-
-        binding.deleteSaveButton.setOnClickListener {
-            with(binding.editContent){
-                setText("")
-            }
-            with(binding.saveEditContent){
-                setText("")
-                clearFocus()
-                Util.hideKeyboard(this)
-            }
-            group.visibility = View.INVISIBLE
         }
 
         binding.saveButton.setOnClickListener {
-            with(binding.editContent) {
-                if (text.isNullOrBlank()) {
-                    Toast.makeText(
-                            this@PostActivity,
-                            context.getString(R.string.empty_text),
-                            Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
-
-                viewModel.changeContent(text.toString())
-                viewModel.save()
-
-                setText("")
-                clearFocus()
-                Util.hideKeyboard(this)
-            }
+            val intent = Intent(this, CreatPostActivity::class.java)
+            startActivityForResult(intent, newPostRequestCode)
         }
+
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            newPostRequestCode -> {
+                if (resultCode != Activity.RESULT_OK) {
+                    return
+                }
+
+                data?.getStringExtra(Intent.EXTRA_TEXT)?.let {
+                    viewModel.changeContent(it)
+                    viewModel.save()
+                }
+            }
+        }
+    }
 }
