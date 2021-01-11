@@ -22,22 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="editContent,saveButton"
         />
 
-    <EditText
-        android:id="@+id/editContent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:hint="@string/post_text"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine"
-        android:padding="@dimen/common_spacing"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/saveButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/toolsTop" />
+
 
     <ImageButton
         android:id="@+id/saveButton"
@@ -46,47 +33,13 @@
         android:layout_marginTop="@dimen/common_spacing"
         android:background="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/editContent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/ic_save_48"
         />
 
-    <TextView
-        android:id="@+id/saveEditContent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="10dp"
-        android:background="#FFFFFF"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine"
-        android:padding="@dimen/common_spacing"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/toolsTop"
-        app:layout_constraintEnd_toStartOf="@id/deleteSaveButton"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/deleteSaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/common_spacing"
-        android:background="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/toolsTop"
-        app:layout_constraintStart_toEndOf="@id/saveEditContent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/ic_action_delete_edit"
-        />
 
 
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="saveEditContent,deleteSaveButton"
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

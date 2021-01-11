@@ -4,4 +4,5 @@
     <string name="date_May">May 21 at 18:36</string>
     <string name="post_text">Post text</string>
     <string name="empty_text">Can`t be empty</string>
+    <string name="description_chooser">Post</string>
 </resources>

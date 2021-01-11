@@ -76,6 +76,28 @@
         android:paddingTop="@dimen/common_spacing"
         android:paddingBottom="@dimen/common_spacing" />
 
+    <ImageView
+        android:id="@+id/videoImageView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:srcCompat="@color/colorBackgroundOne"
+        app:layout_constraintTop_toBottomOf="@+id/contentText"
+        app:layout_constraintBottom_toTopOf="@id/barrier2"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/playVideoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:background="@android:color/transparent"
+        app:iconTint="@color/repostClicker"
+        app:icon="@drawable/ic_play_icons"
+        app:layout_constraintTop_toTopOf="@id/videoImageView"
+        app:layout_constraintBottom_toBottomOf="@id/videoImageView"
+        app:layout_constraintRight_toRightOf="@id/videoImageView"
+        app:layout_constraintLeft_toLeftOf="@id/videoImageView"
+        />
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier2"
         app:barrierDirection="bottom"
