@@ -1,91 +1,39 @@
 package ru.netology.android_v2.Posts
 
-import android.widget.Toast
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
-class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
+class PostLikeRepostInMemoryImpl(
+        context: Context
+) : PostRepositoryInMemoryImpl{
 
-    var currentId = 1
-
-    private var post = Post(
-            0,
-            "Рассия",
-            "01 декабря 2020",
-            "Это первый пост созданный 1 декабря 2020 года.\\n\\n",
-            false,
-            8,
-            false,
-            9,
-            3,
-        "https://www.youtube.com"
-    )
-
-    private var posts = listOf(
-            Post(
-                    currentId++,
-                "First",
-                "01 декабря 2020",
-                "Это первый пост созданный 1 декабря 2020 года.",
-                false,
-                6,
-                false,
-                    7,
-                111,
-                "https://www.youtube.com"
-    ),
-            Post(
-                    currentId++,
-                "Второй пост.",
-                "01 декабря 2020",
-                "Это второй пост созданный 2 декабря 2020 года.",
-                false,
-                15,
-                false,
-                4444,
-                111,
-                "https://www.youtube.com"
-            ),
-            Post(
-                    currentId++,
-                "Третий.",
-                "01 декабря 2020",
-                "Это третий пост созданный 3 декабря 2020 года.",
-                false,
-                90,
-                false,
-                9,
-                111,
-                "https://www.youtube.com"
-    ),
-        Post(
-                currentId++,
-                "Четвертый.",
-                "01 декабря 2020",
-                "Это четвертый пост созданный 4 декабря 2020 года.",
-                false,
-                323,
-                false,
-                11111,
-                111,
-            "https://www.youtube.com"
-        )
-    )
-
-
-    private val data = MutableLiveData(post)
-    private val dataPost = MutableLiveData(posts)
-
-    override fun get(): LiveData<Post> = data
-    override fun getAll(): LiveData<List<Post>> = dataPost
-
-    override fun like() {
-        post = post.copy(
-                liked = !post.liked,
-                likesCount = if (!post.liked) post.likesCount + 1 else post.likesCount - 1
-        )
+    private companion object{
+        const val POST_FILE = "posts.json"
     }
 
+    var currentId = 1
+    private val file = context.filesDir.resolve(POST_FILE)
+    //private val preferences = context.getSharedPreferences(POST_FILE, Context.MODE_PRIVATE)
+    private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
+    private val gson = Gson()
+    private var posts: List<Post> = file.exists().let {exists ->
+        if (exists) {
+            gson.fromJson(file.readText(), type)
+        }else {
+            emptyList()
+        }
+    }
+        set(value) {
+            field =value
+            sync()
+        }
+
+    private val dataPost = MutableLiveData(posts)
+
+    override fun getAll(): LiveData<List<Post>> = dataPost
     override fun likeById(id: Int) {
         posts = posts.map {
             if (it.id != id) it else it.copy(
@@ -94,13 +42,9 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
             )
         }
         dataPost.value = posts
-
     }
 
-    override fun share() {
-        post = post.copy(shareCount = post.shareCount + 1)
-        data.value = post
-    }
+
 
     override fun shareById(id: Int) {
         posts = posts.map {
@@ -128,5 +72,10 @@ class PostLikeRepostInMemoryImpl : PostRepositoryInMemoryImpl{
         }
 
         dataPost.value = posts
+    }
+
+    private fun sync() {
+        file.writeText(gson.toJson(posts))
+
     }
 }

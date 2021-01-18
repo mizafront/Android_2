@@ -1,14 +1,15 @@
 package ru.netology.android_v2.Posts
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
-class PostViewModel: ViewModel() {
-    private val repository: PostRepositoryInMemoryImpl = PostLikeRepostInMemoryImpl()
+class PostViewModel(application: Application): AndroidViewModel(application) {
+    private val repository: PostRepositoryInMemoryImpl = PostLikeRepostInMemoryImpl(application)
 
     val dataList = repository.getAll()
-
     val edited = MutableLiveData(getEmptyPost())
 
     fun save(){
@@ -32,11 +33,7 @@ class PostViewModel: ViewModel() {
         edited.value = post
     }
 
-    fun like() = repository.like()
-
     fun likeById(id: Int) = repository.likeById(id)
-
-    fun share() = repository.share()
 
     fun shareById(id: Int) = repository.shareById(id)
 
