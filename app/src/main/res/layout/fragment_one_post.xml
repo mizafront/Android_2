@@ -4,13 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:id="@+id/onPost"
+    android:layout_height="match_parent"
     android:padding="@dimen/common_spacing"
+    tools:context=".activity.OnePostFragment"
     android:background="@color/colorBackgroundOne">
 
+
     <ImageView
-        android:id="@+id/netology"
-        app:layout_constraintBottom_toBottomOf="@id/header"
+        android:id="@+id/netologyOnePost"
+        app:layout_constraintBottom_toBottomOf="@id/headerOnePost"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="@dimen/posts_avatar_size"
@@ -19,10 +22,10 @@
         android:src="@mipmap/ic_launcher"/>
 
     <TextView
-        android:id="@+id/authorText"
-        app:layout_constraintBottom_toTopOf="@+id/publisherText"
-        app:layout_constraintEnd_toStartOf="@id/menuImage"
-        app:layout_constraintStart_toEndOf="@id/netology"
+        android:id="@+id/authorTextOnePost"
+        app:layout_constraintBottom_toTopOf="@+id/publisherTextOnePost"
+        app:layout_constraintEnd_toStartOf="@id/menuImageOnePost"
+        app:layout_constraintStart_toEndOf="@id/netologyOnePost"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="@sample/posts.json/data/author"
@@ -34,11 +37,11 @@
         android:singleLine="true" />
 
     <TextView
-        android:id="@+id/publisherText"
-        app:layout_constraintBottom_toBottomOf="@id/header"
-        app:layout_constraintEnd_toStartOf="@id/menuImage"
-        app:layout_constraintStart_toEndOf="@id/netology"
-        app:layout_constraintTop_toBottomOf="@id/authorText"
+        android:id="@+id/publisherTextOnePost"
+        app:layout_constraintBottom_toBottomOf="@id/headerOnePost"
+        app:layout_constraintEnd_toStartOf="@id/menuImageOnePost"
+        app:layout_constraintStart_toEndOf="@id/netologyOnePost"
+        app:layout_constraintTop_toBottomOf="@id/authorTextOnePost"
         tools:text="@sample/posts.json/data/published"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,7 +50,7 @@
         android:layout_marginBottom="@dimen/common_spacing" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/menuImage"
+        android:id="@+id/menuImageOnePost"
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:background="@android:color/transparent"
@@ -57,17 +60,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/header"
+        android:id="@+id/headerOnePost"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="netology,publisherText,menuImage"
+        app:constraint_referenced_ids="netologyOnePost,publisherTextOnePost,menuImageOnePost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/contentText"
+        android:id="@+id/contentTextOnePost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintTop_toBottomOf="@id/headerOnePost"
         tools:text="@sample/posts.json/data/content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -76,39 +79,19 @@
         android:paddingTop="@dimen/common_spacing"
         android:paddingBottom="@dimen/common_spacing" />
 
-    <ImageView
-        android:id="@+id/videoImageView"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:srcCompat="@color/colorBackgroundOne"
-        app:layout_constraintTop_toBottomOf="@+id/contentText"
-        app:layout_constraintBottom_toTopOf="@id/barrier2"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/playVideoImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkable="true"
-        android:background="@android:color/transparent"
-        app:iconTint="@color/repostClicker"
-        app:icon="@drawable/ic_play_icons"
-        app:layout_constraintTop_toTopOf="@id/videoImageView"
-        app:layout_constraintBottom_toBottomOf="@id/videoImageView"
-        app:layout_constraintRight_toRightOf="@id/videoImageView"
-        app:layout_constraintLeft_toLeftOf="@id/videoImageView"
-        />
 
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier2"
+        android:id="@+id/barrier2OnePost"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="contentText"
+        app:constraint_referenced_ids="contentTextOnePost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/likesImage"
+        android:id="@+id/likesImageOnePost"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrier2"
+        app:layout_constraintTop_toBottomOf="@id/barrier2OnePost"
         app:icon="@drawable/ic_like_selector"
         app:iconTint="@color/ic_like_tint"
         android:checkable="true"
@@ -121,9 +104,9 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/repostImage"
-        app:layout_constraintStart_toEndOf="@+id/likesImage"
-        app:layout_constraintTop_toBottomOf="@id/barrier2"
+        android:id="@+id/repostImageOnePost"
+        app:layout_constraintStart_toEndOf="@+id/likesImageOnePost"
+        app:layout_constraintTop_toBottomOf="@id/barrier2OnePost"
         app:icon="@drawable/ic_repost"
         app:iconTint="@color/repostClicker"
         android:checkable="true"
@@ -136,8 +119,8 @@
 
 
     <ImageView
-        android:id="@+id/watchImage"
-        app:layout_constraintTop_toBottomOf="@id/barrier2"
+        android:id="@+id/watchImageOnePost"
+        app:layout_constraintTop_toBottomOf="@id/barrier2OnePost"
         app:srcCompat="@drawable/ic_action_watch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -148,6 +131,15 @@
         android:layout_marginEnd="10dp"/>
 
 
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Back"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

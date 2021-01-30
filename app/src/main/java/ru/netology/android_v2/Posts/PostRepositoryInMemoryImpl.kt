@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 
 interface PostRepositoryInMemoryImpl {
     fun getAll(): LiveData<List<Post>>
+    fun getById(id: Int): Post?
     fun likeById(id: Int)
     fun shareById(id: Int)
     fun removeById(id: Int)
