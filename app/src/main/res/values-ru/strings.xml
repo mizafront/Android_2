@@ -5,5 +5,6 @@
     <string name="date_May">21 мая в 18:36</string>
     <string name="post_text">Отправьте пост</string>
     <string name="empty_text">Не может быть пустым</string>
+    <string name="chooser_share_post">Разместить пост</string>
     <string name="description_chooser">Пост</string>
 </resources>
