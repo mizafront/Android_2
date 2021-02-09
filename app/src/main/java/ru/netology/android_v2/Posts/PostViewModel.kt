@@ -3,52 +3,50 @@ package ru.netology.android_v2.Posts
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import ru.netology.android_v2.db.AppDb
 
 
-class PostViewModel(application: Application): AndroidViewModel(application) {
-    private val repository: PostRepositoryInMemoryImpl = PostLikeRepostInMemoryImpl(application)
+private val empty = Post(
+        id = 0L,
+        content = "",
+        author = "",
+        liked = false,
+        likesCount = 0,
+        published = ""
+)
 
-    val dataList = repository.getAll()
+class PostViewModel(application: Application) : AndroidViewModel(application) {
+    // упрощённый вариант
+    private val repository: PostRepositoryInMemoryImpl = PostRepositorySQLiteImpl(
+            AppDb.getInstance(application).postDao()
+    )
+    val data = repository.getAll()
+    val edited = MutableLiveData(empty)
     val dataOnePost = MutableLiveData(getEmptyPost())
-    val edited = MutableLiveData(getEmptyPost())
 
-    fun save(){
+    fun save() {
         edited.value?.let {
             repository.save(it)
-            setPostData(it)
         }
-        edited.value = getEmptyPost()
-
-    }
-
-    fun changeContent(content: String) {
-        edited.value?.let {
-            val text = content.trim()
-            if (it.content == text) {
-                return
-            }
-            edited.value = it.copy(content = text)
-        }
+        edited.value = empty
     }
 
     fun edit(post: Post) {
         edited.value = post
     }
 
-    fun likeById(id: Int) {
-        repository.likeById(id)
-        dataOnePost.value = repository.getById(id)
+    fun changeContent(content: String) {
+        val text = content.trim()
+        if (edited.value?.content == text) {
+            return
+        }
+        edited.value = edited.value?.copy(content = text)
     }
 
-    fun shareById(id: Int) = repository.shareById(id)
-
-    fun removeById(id: Int) = repository.removeById(id)
+    fun likeById(id: Long) = repository.likeById(id)
+    fun removeById(id: Long) = repository.removeById(id)
 
     fun clickPost(post: Post){
-        dataOnePost.value = post
-    }
-
-    fun setPostData(post: Post) {
         dataOnePost.value = post
     }
 }

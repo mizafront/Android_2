@@ -13,10 +13,8 @@ import ru.netology.android_v2.databinding.PostCardBinding
 
 interface OnInteractionListener {
     fun onLike(post: Post)
-    fun onShare(post: Post)
     fun onRemove(post: Post)
     fun onEdit(post: Post)
-    fun onPlay(post: Post)
     fun onClickPost(post: Post)
 }
 
@@ -46,15 +44,10 @@ class PostViewHolder(
             contentText.text = post.content
             publisherText.text = post.published
             likesImage.isChecked = post.liked
-            repostImage.isChecked = post.shared
             likesImage.text = Util.parseNumber(post.likesCount)
-            repostImage.text = Util.parseNumber(post.shareCount)
 
             likesImage.setOnClickListener {
                 OnInteractionListener.onLike(post)
-            }
-            repostImage.setOnClickListener {
-                OnInteractionListener.onShare(post)
             }
 
             menuImage.setOnClickListener {
@@ -74,14 +67,6 @@ class PostViewHolder(
                         }
                     }
                 }.show()
-            }
-
-            playVideoImageView.setOnClickListener {
-                OnInteractionListener.onPlay(post)
-            }
-
-            videoImageView.setOnClickListener {
-                OnInteractionListener.onPlay(post)
             }
 
            root.setOnClickListener{
