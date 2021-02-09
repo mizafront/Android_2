@@ -76,28 +76,6 @@
         android:paddingTop="@dimen/common_spacing"
         android:paddingBottom="@dimen/common_spacing" />
 
-    <ImageView
-        android:id="@+id/videoImageView"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:srcCompat="@color/colorBackgroundOne"
-        app:layout_constraintTop_toBottomOf="@+id/contentText"
-        app:layout_constraintBottom_toTopOf="@id/barrier2"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/playVideoImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkable="true"
-        android:background="@android:color/transparent"
-        app:iconTint="@color/repostClicker"
-        app:icon="@drawable/ic_play_icons"
-        app:layout_constraintTop_toTopOf="@id/videoImageView"
-        app:layout_constraintBottom_toBottomOf="@id/videoImageView"
-        app:layout_constraintRight_toRightOf="@id/videoImageView"
-        app:layout_constraintLeft_toLeftOf="@id/videoImageView"
-        />
-
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier2"
         app:barrierDirection="bottom"
@@ -120,32 +98,7 @@
         />
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/repostImage"
-        app:layout_constraintStart_toEndOf="@+id/likesImage"
-        app:layout_constraintTop_toBottomOf="@id/barrier2"
-        app:icon="@drawable/ic_repost"
-        app:iconTint="@color/repostClicker"
-        android:checkable="true"
-        tools:text="111"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/common_spacing"
-        android:background="@android:color/transparent" />
 
-
-    <ImageView
-        android:id="@+id/watchImage"
-        app:layout_constraintTop_toBottomOf="@id/barrier2"
-        app:srcCompat="@drawable/ic_action_watch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/common_spacing"
-        android:layout_marginTop="@dimen/common_spacing"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="10dp"/>
 
 
 

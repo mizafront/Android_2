@@ -1,6 +1,5 @@
 package ru.netology.android_v2.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,30 +51,16 @@ class FeedFragment : Fragment() {
 
             }
 
-            override fun onPlay(post: Post) {
-
-            }
 
             override fun onClickPost(post: Post) {
                 viewModel.clickPost(post)
                 findNavController().navigate(R.id.action_feedFragment_to_onePostFragment)
             }
 
-            override fun onShare(post: Post) {
-                val intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, post.content)
-                    type = "text/plain"
-                }
-
-                val shareIntent =
-                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
-                startActivity(shareIntent)
-            }
         })
 
         binding.recycler.adapter = adapter
-        viewModel.dataList.observe(viewLifecycleOwner, { posts ->
+        viewModel.data.observe(viewLifecycleOwner, { posts ->
             adapter.submitList(posts)
         })
 

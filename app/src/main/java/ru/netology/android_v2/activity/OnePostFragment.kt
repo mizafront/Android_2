@@ -1,6 +1,5 @@
 package ru.netology.android_v2.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,26 +35,10 @@ class OnePostFragment : Fragment() {
                 contentTextOnePost.text = post.content
                 publisherTextOnePost.text = post.published
                 likesImageOnePost.isChecked = post.liked
-                repostImageOnePost.isChecked = post.shared
                 likesImageOnePost.text = Util.parseNumber(post.likesCount)
-                repostImageOnePost.text = Util.parseNumber(post.shareCount)
 
                 likesImageOnePost.setOnClickListener {
                     viewModel.likeById(post.id)
-                }
-
-
-                repostImageOnePost.setOnClickListener {
-                    val intent = Intent()
-                            .setAction(Intent.ACTION_SEND)
-                            .putExtra(Intent.EXTRA_TEXT, post.content)
-                            .setType("text/plain")
-                    val shareIntent = Intent.createChooser(intent, "Post content")
-
-                    if (context?.let { intent.resolveActivity(it.packageManager) } != null) {
-                        startActivity(shareIntent)
-                        viewModel.shareById(post.id)
-                    }
                 }
 
                 menuImageOnePost.setOnClickListener {
