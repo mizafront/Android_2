@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "782822565523",
+    "project_id": "mnedia-34057",
+    "storage_bucket": "mnedia-34057.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782822565523:android:8099af6dfe6d5053200f66",
+        "android_client_info": {
+          "package_name": "ru.netology.nmedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782822565523-i5phb75cnpk2c814bpk7vl7e4vumh286.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfbi3ZdmuJcSgBRcdLg3m1qSPZ2Y1CSKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782822565523-i5phb75cnpk2c814bpk7vl7e4vumh286.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
