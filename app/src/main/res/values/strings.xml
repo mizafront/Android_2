@@ -6,7 +6,7 @@
     <string name="empty_text">Can`t be empty</string>
     <string name="chooser_share_post">Share post</string>
     <string name="description_chooser">Post</string>
-    <string name="notification_user_liked">User %1$s liked %2$s\'s post</string>
+    <string name="notification_user_liked">%1$s published a new post:</string>
     <string name="channel_remote_name">Server notifications</string>
     <string name="channel_remote_description">Notifications from remote server</string>
     <string name="msg_token_fmt">Token device</string>
