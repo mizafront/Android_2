@@ -45,7 +45,7 @@ class FCMService : FirebaseMessagingService() {
         message.data[action]?.let {
             try {
                 when (Action.valueOf(it)) {
-                    Action.Like -> handleLike(gson.fromJson(message.data[content], Like::class.java))
+                    Action.NewPost -> handleLike(gson.fromJson(message.data[content], NewPost::class.java))
                 }
             }catch (e: Exception){
                 Failure(e)
@@ -58,14 +58,13 @@ class FCMService : FirebaseMessagingService() {
         println(token)
     }
 
-    private fun handleLike(content: Like) {
+    private fun handleLike(content: NewPost) {
         val notification = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_play_icons)
             .setContentTitle(
                 getString(
                     R.string.notification_user_liked,
-                    content.userName,
-                    content.postAuthor
+                    content.userName
                 )
             )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -79,10 +78,10 @@ class FCMService : FirebaseMessagingService() {
 }
 
 enum class Action {
-    Like,
+    NewPost,
 }
 
-data class Like(
+data class NewPost(
     val userId: Long,
     val userName: String,
     val postId: Long,
