@@ -11,4 +11,7 @@
     <string name="channel_remote_name">Server notifications</string>
     <string name="channel_remote_description">Notifications from remote server</string>
     <string name="msg_token_fmt">Token device</string>
+    <string name="empty_posts">Нету постов. Попробуйте создать пост или подождать.</string>
+    <string name="retry_loading">Retry</string>
+    <string name="error_loading">Something went wrong. Try again later</string>
 </resources>

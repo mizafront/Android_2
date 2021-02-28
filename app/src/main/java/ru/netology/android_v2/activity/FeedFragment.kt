@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import ru.netology.android_v2.R
 import ru.netology.android_v2.adapter.OnInteractionListener
 import ru.netology.android_v2.adapter.PostsAdapter
 import ru.netology.android_v2.databinding.FragmentFeedBinding
+import ru.netology.android_v2.model.FeedModel
 
 
 class FeedFragment : Fragment() {
@@ -60,9 +62,16 @@ class FeedFragment : Fragment() {
         })
 
         binding.recycler.adapter = adapter
-        viewModel.data.observe(viewLifecycleOwner, { posts ->
-            adapter.submitList(posts)
+        viewModel.data.observe(viewLifecycleOwner, { state ->
+            adapter.submitList(state.posts)
+            binding.progress.isVisible = state.loading
+            binding.errorGroup.isVisible = state.error
+            binding.emptyText.isVisible = state.empty
         })
+
+        binding.retryButton.setOnClickListener {
+            viewModel.loadPost()
+        }
 
         binding.saveButton.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)

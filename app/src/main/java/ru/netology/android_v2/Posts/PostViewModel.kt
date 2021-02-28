@@ -2,8 +2,13 @@ package ru.netology.android_v2.Posts
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.android_v2.db.AppDb
+import ru.netology.android_v2.model.FeedModel
+import ru.netology.android_v2.util.SingleLiveEvent
+import java.io.IOException
+import kotlin.concurrent.thread
 
 
 private val empty = Post(
@@ -16,17 +21,38 @@ private val empty = Post(
 )
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
-    // упрощённый вариант
-    private val repository: PostRepositoryInMemoryImpl = PostRepositorySQLiteImpl(
-            AppDb.getInstance(application).postDao()
-    )
-    val data = repository.getAll()
+    private val repository: PostRepositoryInMemoryImpl = PostRepository()
     val edited = MutableLiveData(empty)
     val dataOnePost = MutableLiveData(getEmptyPost())
+    private val _data = MutableLiveData(FeedModel())
+    val data: LiveData<FeedModel>
+        get() = _data
+    private val _postCreated = SingleLiveEvent<Unit>()
+    val postCreated: LiveData<Unit>
+        get() = _postCreated
+
+    init {
+        loadPost()
+    }
+
+    fun loadPost() {
+        thread {
+            _data.postValue(FeedModel(loading = true))
+            try {
+                val posts = repository.getAll()
+                FeedModel(posts = posts, empty = posts.isEmpty())
+            }catch (e: IOException){
+                FeedModel(error = true)
+            }.also { _data::postValue }
+        }
+    }
 
     fun save() {
         edited.value?.let {
-            repository.save(it)
+            thread {
+                repository.save(it)
+                _postCreated.postValue(Unit)
+            }
         }
         edited.value = empty
     }
@@ -43,8 +69,52 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         edited.value = edited.value?.copy(content = text)
     }
 
-    fun likeById(id: Long) = repository.likeById(id)
-    fun removeById(id: Long) = repository.removeById(id)
+    fun likeById(id: Long) {
+        thread {
+            try {
+                repository.likeById(id)
+                data.value?.let {
+                    it.posts.map {post ->
+                        if (post.id == id) {
+                            post.copy(
+                                id = post.id,
+                                liked = !post.liked,
+                                likesCount = post.likesCount + if (post.liked) -1 else 1
+                            )
+                        }else {
+                            post
+                        }
+                    }
+                }.also {
+                    _data.postValue(it?.let { posts ->
+                        FeedModel(
+                            posts = posts,
+                            empty = posts.isEmpty()
+                        )
+                    })
+                }
+                dataOnePost.postValue(data.value?.posts?.filter { it.id == id }?.first())
+            }catch (e: IOException){
+                _data.postValue(data.value?.copy(error = true))
+            }
+        }
+    }
+
+    fun removeById(id: Long) {
+        thread {
+            val old = _data.value?.posts.orEmpty()
+            _data.postValue(
+                _data.value?.copy(posts = _data.value?.posts.orEmpty()
+                    .filter { it.id != id }
+                )
+            )
+            try {
+                repository.removeById(id)
+            }catch (e: IOException) {
+                _data.postValue(_data.value?.copy(posts = old))
+            }
+        }
+    }
 
     fun clickPost(post: Post){
         dataOnePost.value = post
