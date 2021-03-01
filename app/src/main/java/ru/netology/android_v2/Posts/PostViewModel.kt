@@ -73,7 +73,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         thread {
             try {
                 repository.likeById(id)
-                data.value?.let {
+                _data.value?.let {
                     it.posts.map {post ->
                         if (post.id == id) {
                             post.copy(
@@ -93,9 +93,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     })
                 }
-                dataOnePost.postValue(data.value?.posts?.filter { it.id == id }?.first())
+                dataOnePost.postValue(_data.value?.posts?.filter { it.id == id }?.first())
             }catch (e: IOException){
-                _data.postValue(data.value?.copy(error = true))
+                _data.postValue(_data.value?.copy(error = true))
             }
         }
     }

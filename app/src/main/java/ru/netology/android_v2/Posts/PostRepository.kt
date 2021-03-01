@@ -1,7 +1,5 @@
 package ru.netology.android_v2.Posts
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaType
@@ -32,7 +30,7 @@ class PostRepository : PostRepositoryInMemoryImpl {
 
         return client.newCall(request)
             .execute()
-            .let { it.body?.string() ?: throw RuntimeException("body is") }
+            .let { it.body?.string() ?: throw RuntimeException("body is null") }
             .let {
                 gson.fromJson(it,typeToken.type)
             }
