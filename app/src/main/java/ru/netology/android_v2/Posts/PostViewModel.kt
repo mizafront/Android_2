@@ -43,7 +43,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 FeedModel(posts = posts, empty = posts.isEmpty())
             }catch (e: IOException){
                 FeedModel(error = true)
-            }.also { _data::postValue }
+            }.also ( _data::postValue )
         }
     }
 

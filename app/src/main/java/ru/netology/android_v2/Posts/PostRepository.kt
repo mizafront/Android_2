@@ -49,6 +49,7 @@ class PostRepository : PostRepositoryInMemoryImpl {
 
     override fun removeById(id: Long) {
         val request: Request = Request.Builder()
+            .delete()
             .url("${BASE_URL}/api/slow/posts/$id")
             .build()
 
