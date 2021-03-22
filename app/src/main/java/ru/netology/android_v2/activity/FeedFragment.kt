@@ -15,7 +15,6 @@ import ru.netology.android_v2.R
 import ru.netology.android_v2.adapter.OnInteractionListener
 import ru.netology.android_v2.adapter.PostsAdapter
 import ru.netology.android_v2.databinding.FragmentFeedBinding
-import ru.netology.android_v2.model.FeedModel
 
 
 class FeedFragment : Fragment() {
