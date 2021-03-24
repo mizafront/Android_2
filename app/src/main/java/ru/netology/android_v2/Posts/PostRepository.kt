@@ -59,37 +59,37 @@ class PostRepository : PostRepositoryInMemoryImpl {
                 })
     }
 
-    override fun likeById(id: Long) {
+    override fun likeById(id: Long, callback: PostRepositoryInMemoryImpl.GetAnyCallback) {
         val request: Request = Request.Builder()
-            .url("${BASE_URL}/api/slow/posts/$id/likes")
-            .post("".toRequestBody(jsonType))
-            .build()
+                .url("${BASE_URL}/api/slow/posts/$id/likes")
+                .post("".toRequestBody(jsonType))
+                .build()
 
         return client.newCall(request)
-            .execute()
-            .close()
+                .execute()
+                .close()
     }
 
-    override fun removeById(id: Long) {
+    override fun removeById(id: Long, callback: PostRepositoryInMemoryImpl.GetAnyCallback) {
         val request: Request = Request.Builder()
-            .delete()
-            .url("${BASE_URL}/api/slow/posts/$id")
-            .build()
+                .delete()
+                .url("${BASE_URL}/api/slow/posts/$id")
+                .build()
 
         return client.newCall(request)
-            .execute()
-            .close()
+                .execute()
+                .close()
     }
 
-    override fun save(post: Post) {
+    override fun save(post: Post, callback: PostRepositoryInMemoryImpl.GetAnyCallback) {
         val request: Request = Request.Builder()
-            .post(gson.toJson(post).toRequestBody(jsonType))
-            .url("${BASE_URL}/api/slow/posts")
-            .build()
+                .post(gson.toJson(post).toRequestBody(jsonType))
+                .url("${BASE_URL}/api/slow/posts")
+                .build()
 
         return client.newCall(request)
-            .execute()
-            .close()
+                .execute()
+                .close()
     }
 
 

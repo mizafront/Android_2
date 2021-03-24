@@ -51,12 +51,18 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun save() {
         edited.value?.let {
-            thread {
-                repository.save(it)
-                _postCreated.postValue(Unit)
-            }
+            repository.save(it, object : PostRepositoryInMemoryImpl.GetAnyCallback{
+                override fun onSuccess() {
+                    loadPost()
+                    edited.postValue(getEmptyPost())
+                }
+
+                override fun onError(e: Exception) {
+                    error(e.toString())
+                }
+            })
         }
-        edited.value = empty
+
     }
 
     fun edit(post: Post) {
@@ -72,53 +78,64 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun likeById(id: Long) {
-        thread {
-            try {
-                repository.likeById(id)
-                _data.value?.let {
-                    it.posts.map {post ->
-                        if (post.id == id) {
-                            post.copy(
-                                id = post.id,
-                                liked = !post.liked,
-                                likesCount = post.likesCount + if (post.liked) -1 else 1
-                            )
-                        }else {
-                            post
-                        }
-                    }
-                }.also {
-                    _data.postValue(it?.let { posts ->
-                        FeedModel(
-                            posts = posts,
-                            empty = posts.isEmpty()
-                        )
-                    })
-                }
+        repository.likeById(id, object : PostRepositoryInMemoryImpl.GetAnyCallback {
+            override fun onSuccess() {
+               data.value.let {
+                   it?.posts?.map { post ->
+                       if (post.id == id) {
+                           post.copy(
+                                   id = post.id,
+                                   liked = !post.liked,
+                                   likesCount = post.likesCount + if (post.liked) -1 else 1
+                           )
+                       }else {
+                           post
+                       }
+                   }
+               }.also {
+                   _data.postValue(it?.let { posts ->
+                       FeedModel(
+                               posts = posts,
+                               empty = posts.isEmpty()
+                       )
+                   })
+               }
                 dataOnePost.postValue(_data.value?.posts?.filter { it.id == id }?.first())
-            }catch (e: IOException){
-                _data.postValue(_data.value?.copy(error = true))
             }
-        }
+
+            override fun onError(e: Exception) {
+                _data.postValue(data.value?.copy(error = true))
+            }
+        })
     }
 
     fun removeById(id: Long) {
-        thread {
-            val old = _data.value?.posts.orEmpty()
-            _data.postValue(
-                _data.value?.copy(posts = _data.value?.posts.orEmpty()
-                    .filter { it.id != id }
-                )
-            )
-            try {
-                repository.removeById(id)
-            }catch (e: IOException) {
-                _data.postValue(_data.value?.copy(posts = old))
+        repository.removeById(id, object : PostRepositoryInMemoryImpl.GetAnyCallback {
+            override fun onSuccess() {
+                try {
+                    data.value?.posts
+                            ?.filter { it.id != id }
+                            .apply {
+                                _data.postValue(
+                                        this?.let {
+                                            FeedModel(posts = it, it.isEmpty())
+                                        })
+                            }
+                }catch (e : IOException) {
+                    _data.postValue(FeedModel(error = true))
+                }
             }
-        }
+
+            override fun onError(e: Exception) {
+                _data.postValue(FeedModel(error = true))
+            }
+        })
     }
 
     fun clickPost(post: Post){
         dataOnePost.value = post
     }
 }
+
+
+
