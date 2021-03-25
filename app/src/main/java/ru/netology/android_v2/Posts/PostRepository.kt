@@ -65,9 +65,20 @@ class PostRepository : PostRepositoryInMemoryImpl {
                 .post("".toRequestBody(jsonType))
                 .build()
 
-        return client.newCall(request)
-                .execute()
-                .close()
+        client.newCall(request)
+                .enqueue(object : Callback {
+                    override fun onResponse(call: Call, response: Response) {
+                        try {
+                            callback.onSuccess()
+                        } catch (e: IOException){
+                            callback.onError(e)
+                        }
+                    }
+
+                    override fun onFailure(call: Call, e: IOException) {
+                        callback.onError(e)
+                    }
+                })
     }
 
     override fun removeById(id: Long, callback: PostRepositoryInMemoryImpl.GetAnyCallback) {
@@ -76,9 +87,20 @@ class PostRepository : PostRepositoryInMemoryImpl {
                 .url("${BASE_URL}/api/slow/posts/$id")
                 .build()
 
-        return client.newCall(request)
-                .execute()
-                .close()
+        client.newCall(request)
+                .enqueue(object : Callback {
+                    override fun onResponse(call: Call, response: Response) {
+                        try {
+                            callback.onSuccess()
+                        } catch (e: IOException){
+                            callback.onError(e)
+                        }
+                    }
+
+                    override fun onFailure(call: Call, e: IOException) {
+                        callback.onError(e)
+                    }
+                })
     }
 
     override fun save(post: Post, callback: PostRepositoryInMemoryImpl.GetAnyCallback) {
@@ -87,9 +109,20 @@ class PostRepository : PostRepositoryInMemoryImpl {
                 .url("${BASE_URL}/api/slow/posts")
                 .build()
 
-        return client.newCall(request)
-                .execute()
-                .close()
+        client.newCall(request)
+                .enqueue(object : Callback {
+                    override fun onResponse(call: Call, response: Response) {
+                        try {
+                            callback.onSuccess()
+                        } catch (e: IOException){
+                            callback.onError(e)
+                        }
+                    }
+
+                    override fun onFailure(call: Call, e: IOException) {
+                        callback.onError(e)
+                    }
+                })
     }
 
 
