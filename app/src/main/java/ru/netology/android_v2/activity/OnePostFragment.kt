@@ -33,7 +33,7 @@ class OnePostFragment : Fragment() {
             binding.apply {
                 authorTextOnePost.text = post.author
                 contentTextOnePost.text = post.content
-                publisherTextOnePost.text = post.published
+                publisherTextOnePost.text = post.published.toString()
                 likesImageOnePost.isChecked = post.liked
                 likesImageOnePost.text = Util.parseNumber(post.likesCount)
 

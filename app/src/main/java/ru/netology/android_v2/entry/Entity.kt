@@ -9,15 +9,16 @@ data class PostEntity(
         @PrimaryKey(autoGenerate = true)
         val id: Long,
         val author: String = "me",
-        val published: String = "now",
+        val published: Long = 0,
+        val authorAvatar: String,
         val content: String,
         val liked: Boolean,
         val likesCount: Int = 0,
 ){
-        fun toPost(): Post = Post(id, author, published, content, liked, likesCount)
+        fun toPost(): Post = Post(id, author, authorAvatar, content, published,liked, likesCount)
 
         companion object {
                 fun fromPost(post: Post): PostEntity =
-                        PostEntity(post.id, post.author, post.published, post.content, post.liked, post.likesCount)
+                        PostEntity(post.id, post.author, post.published, post.authorAvatar,post.content, post.liked, post.likesCount)
         }
 }
