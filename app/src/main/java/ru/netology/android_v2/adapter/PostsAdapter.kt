@@ -42,7 +42,7 @@ class PostViewHolder(
         binding.apply {
             authorText.text = post.author
             contentText.text = post.content
-            publisherText.text = post.published
+            publisherText.text = post.published.toString()
             likesImage.isChecked = post.liked
             likesImage.text = Util.parseNumber(post.likesCount)
 
