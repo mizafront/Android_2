@@ -23,7 +23,7 @@ private val empty = Post(
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: PostRepositoryInMemoryImpl = PostRepository()
-    val edited = MutableLiveData(getEmptyPost())
+    val edited = MutableLiveData(empty)
     val dataOnePost = MutableLiveData(getEmptyPost())
     private val _data = MutableLiveData<FeedModel>()
     val data: LiveData<FeedModel>
