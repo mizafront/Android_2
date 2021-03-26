@@ -26,7 +26,7 @@ class PostRepository : PostRepositoryInMemoryImpl {
 
     override fun getAll(): List<Post> {
         val request: Request = Request.Builder()
-            .url("${BASE_URL}/api/slow/posts")
+            .url("${BASE_URL}/api/posts")
             .build()
 
         return client.newCall(request)
@@ -39,7 +39,7 @@ class PostRepository : PostRepositoryInMemoryImpl {
 
     override fun getAllAsync(callback: PostRepositoryInMemoryImpl.GetAllCallback) {
         val request: Request = Request.Builder()
-                .url("${BASE_URL}/api/slow/posts")
+                .url("${BASE_URL}/api/posts")
                 .build()
 
         client.newCall(request)
@@ -61,7 +61,7 @@ class PostRepository : PostRepositoryInMemoryImpl {
 
     override fun likeById(id: Long, callback: PostRepositoryInMemoryImpl.GetAnyCallback) {
         val request: Request = Request.Builder()
-                .url("${BASE_URL}/api/slow/posts/$id/likes")
+                .url("${BASE_URL}/api/posts/$id/likes")
                 .post("".toRequestBody(jsonType))
                 .build()
 
@@ -84,7 +84,7 @@ class PostRepository : PostRepositoryInMemoryImpl {
     override fun removeById(id: Long, callback: PostRepositoryInMemoryImpl.GetAnyCallback) {
         val request: Request = Request.Builder()
                 .delete()
-                .url("${BASE_URL}/api/slow/posts/$id")
+                .url("${BASE_URL}/api/posts/$id")
                 .build()
 
         client.newCall(request)
@@ -106,7 +106,7 @@ class PostRepository : PostRepositoryInMemoryImpl {
     override fun save(post: Post, callback: PostRepositoryInMemoryImpl.GetAnyCallback) {
         val request: Request = Request.Builder()
                 .post(gson.toJson(post).toRequestBody(jsonType))
-                .url("${BASE_URL}/api/slow/posts")
+                .url("${BASE_URL}/api/posts")
                 .build()
 
         client.newCall(request)
@@ -120,7 +120,7 @@ class PostRepository : PostRepositoryInMemoryImpl {
                     }
 
                     override fun onFailure(call: Call, e: IOException) {
-                        callback.onError(e)
+                        callback.onError(RuntimeException(e))
                     }
                 })
     }
