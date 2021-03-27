@@ -7,7 +7,8 @@ data class Post(
         val content: String = "Ура нас много!",
         val published: Long ,
         val liked: Boolean,
-        val likesCount: Int = 0
+        val likesCount: Int = 0,
+        val  attachment: Attachment? = null
 )
 
 fun getEmptyPost(): Post {

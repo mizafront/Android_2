@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.android_v2.Posts.Post
 import ru.netology.android_v2.Posts.Util
+import ru.netology.android_v2.Posts.Util.loadingImg
 import ru.netology.android_v2.R
 import ru.netology.android_v2.databinding.PostCardBinding
 
@@ -40,11 +41,13 @@ class PostViewHolder(
 ) :RecyclerView.ViewHolder(binding.root){
     fun bind(post: Post){
         binding.apply {
+            authorImage.loadingImg("http://10.0.2.2:9999/avatars/", post.authorAvatar)
             authorText.text = post.author
             contentText.text = post.content
             publisherText.text = post.published.toString()
             likesImage.isChecked = post.liked
             likesImage.text = Util.parseNumber(post.likesCount)
+
 
             likesImage.setOnClickListener {
                 OnInteractionListener.onLike(post)

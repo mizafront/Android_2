@@ -27,8 +27,12 @@ abstract class AppDb : RoomDatabase() {
                 context,
                 AppDb::class.java,
                 "app.db"
-        ).allowMainThreadQueries()
-                .build()
+        ).addMigrations(object : Migration(1,2){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE posts ADD COLUMN authorAvatar TEXT DEFAULT '' NOT NULL");
+            }
+        })
+                .allowMainThreadQueries().build()
     }
 }
 

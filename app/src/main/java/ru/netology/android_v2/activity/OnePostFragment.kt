@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.android_v2.Posts.PostViewModel
 import ru.netology.android_v2.Posts.Util
+import ru.netology.android_v2.Posts.Util.loadingImg
 import ru.netology.android_v2.R
 import ru.netology.android_v2.databinding.FragmentOnePostBinding
 
@@ -31,6 +32,7 @@ class OnePostFragment : Fragment() {
 
         viewModel.dataOnePost.observe(viewLifecycleOwner, { post ->
             binding.apply {
+                authorImageOnePost.loadingImg("http://10.0.2.2:9999/avatars/", post.authorAvatar)
                 authorTextOnePost.text = post.author
                 contentTextOnePost.text = post.content
                 publisherTextOnePost.text = post.published.toString()

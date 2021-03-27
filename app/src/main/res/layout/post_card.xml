@@ -9,7 +9,7 @@
     android:background="@color/colorBackgroundOne">
 
     <ImageView
-        android:id="@+id/netology"
+        android:id="@+id/authorImage"
         app:layout_constraintBottom_toBottomOf="@id/header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +22,7 @@
         android:id="@+id/authorText"
         app:layout_constraintBottom_toTopOf="@+id/publisherText"
         app:layout_constraintEnd_toStartOf="@id/menuImage"
-        app:layout_constraintStart_toEndOf="@id/netology"
+        app:layout_constraintStart_toEndOf="@id/authorImage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="@sample/posts.json/data/author"
@@ -37,7 +37,7 @@
         android:id="@+id/publisherText"
         app:layout_constraintBottom_toBottomOf="@id/header"
         app:layout_constraintEnd_toStartOf="@id/menuImage"
-        app:layout_constraintStart_toEndOf="@id/netology"
+        app:layout_constraintStart_toEndOf="@id/authorImage"
         app:layout_constraintTop_toBottomOf="@id/authorText"
         tools:text="@sample/posts.json/data/published"
         android:layout_width="0dp"
@@ -59,7 +59,7 @@
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/header"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="netology,publisherText,menuImage"
+        app:constraint_referenced_ids="authorImage,publisherText,menuImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
